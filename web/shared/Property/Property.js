@@ -27,6 +27,7 @@ const PropertyFragment = createFragment<PropertyData>(
   graphql`
     fragment Property_property on Property {
       id
+      name
       numberOfRooms
       livingSurface
       landSurface
@@ -43,6 +44,7 @@ const PropertyUpsertProperty = createMutation<
     upsertProperty(input: $input) {
       property {
         id
+        name
         numberOfRooms
         livingSurface
         landSurface

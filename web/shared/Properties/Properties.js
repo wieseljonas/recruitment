@@ -29,7 +29,11 @@ const PropertiesFragment = createFragment<PropertiesData>(
         edges {
           node {
             id
+            name
             livingSurface
+            landSurface
+            numberOfRooms
+            numberOfParkings
           }
         }
       }
@@ -76,9 +80,14 @@ export const Properties = (props: Props) => {
                     return (
                       <Link
                         key={node.id}
-                        href={{ pathname: `/property?propertyId=${node.id}` }}
+                        href={{
+                          pathname: '/property',
+                          query: {
+                            propertyId: node.id,
+                          },
+                        }}
                       >
-                        <TableRow hover component={Button}>
+                        <TableRow hover>
                           <TableCell scope="row">{node.name}</TableCell>
                           <TableCell numeric>{node.numberOfRooms}</TableCell>
                           <TableCell numeric>{node.livingSurface}</TableCell>

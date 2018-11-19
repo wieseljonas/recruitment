@@ -45,6 +45,7 @@ type PageInfo {
 type Property implements Node {
   """The ID of an object"""
   id: ID!
+  name: String
   numberOfRooms: Float
   livingSurface: Float
   landSurface: Float
@@ -79,6 +80,7 @@ input PropertyFilters {
 
 input PropertyInput {
   id: ID
+  name: String
   numberOfRooms: Float
   livingSurface: Float
   landSurface: Float
