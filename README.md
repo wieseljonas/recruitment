@@ -116,7 +116,7 @@ $ heroku run yarn heroku-db-migrate --remote heroku-api
 After deployment of api you need to update API_PROD variable in `web/package.json`
 
 ```
-$ heroku apps:create [CHOOSE API NAME] --remote heroku-web
+$ heroku apps:create [CHOOSE WEB NAME] --remote heroku-web
 $ git subtree push --prefix web heroku-web master
 
 to migrate database:
