@@ -118,7 +118,6 @@ After deployment of api you need to update API_PROD variable in `web/package.jso
 ```
 $ heroku apps:create [CHOOSE WEB NAME] --remote heroku-web
 $ git subtree push --prefix web heroku-web master
-
 ```
 
 # Mockups
