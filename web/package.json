@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "CC-BY-4.0",
+  "engines": {
+    "node": "8",
+    "yarn": "1.x"
+  },
   "dependencies": {
     "@material-ui/core": "^3.4.0",
     "@material-ui/lab": "^3.0.0-alpha.23",
@@ -18,6 +22,7 @@
     "esm": "^3.0.82",
     "fast-memoize": "^2.5.1",
     "flow-remove-types": "^1.2.3",
+    "formik": "^1.3.2",
     "full-icu": "^1.2.1",
     "i18next": "^11.5.0",
     "jss": "^9.8.7",
@@ -45,6 +50,7 @@
     "babel-plugin-relay": "^1.6.2",
     "cpx": "^1.5.0",
     "eslint-plugin-jest": "^21.22.0",
+    "get-graphql-schema": "^2.1.2",
     "glob": "^7.1.2",
     "graphql": "^0.13.2",
     "jest": "^23.6.0",
@@ -113,11 +119,9 @@
       "react/no-find-dom-node": 0
     }
   },
-  "engines": {
-    "node": "8"
-  },
   "config": {
-    "API_ENDPOINT": "http://localhost:8080/graphql",
+    "API_PROD": "https://realadvisor-recruitment-api.herokuapp.com/graphql",
+    "API_DEV": "https://realadvisor-recruitment-api.herokuapp.com/graphql",
     "descr": [
       "SCRIPTS description",
       "test - pregenerate files and run tests",
@@ -130,12 +134,15 @@
     ]
   },
   "scripts": {
-    "test": "yarn relay && eslint ./ && flow && jest",
-    "start": "API_ENDPOINT=$npm_package_config_API_ENDPOINT NODE_ENV=production node --icu-data-dir=`yarn -s run node-full-icu-path` server/index.js",
-    "build": "yarn relay && next build",
-    "dev": "yarn relay && yarn dev:raw",
-    "dev:raw": "API_ENDPOINT=$npm_package_config_API_ENDPOINT node --icu-data-dir=`yarn -s run node-full-icu-path` server/index.js",
-    "relay": "relay-compiler --src . --schema ../api/schema.graphql",
+    "test": "yarn relay:dev && eslint ./ && flow && jest",
+    "start": "API_ENDPOINT=$npm_package_config_API_PROD NODE_ENV=production node --icu-data-dir=`yarn -s run node-full-icu-path` server/index.js",
+    "build": "yarn relay:prod && next build",
+    "heroku-prebuild": "yarn install --production=false",
+    "heroku-postbuild": "yarn build",
+    "dev": "yarn relay:prod && yarn dev:raw",
+    "dev:raw": "API_ENDPOINT=$npm_package_config_API_PROD node --icu-data-dir=`yarn -s run node-full-icu-path` server/index.js",
+    "relay:dev": "get-graphql-schema $npm_package_config_API_DEV > schema.graphql&& relay-compiler --src . --schema ./schema.graphql",
+    "relay:prod": "get-graphql-schema $npm_package_config_API_PROD > schema.graphql && relay-compiler --src . --schema ./schema.graphql",
     "relay:clean": "rimraf $TMPDIR/* && rimraf ./**/__generated__/*.graphql.js"
   }
 }

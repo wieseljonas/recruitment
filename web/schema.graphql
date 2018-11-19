@@ -1,6 +1,8 @@
-# A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
-# `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
-# 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
+`date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
+8601 standard for representation of dates and times using the Gregorian calendar.
+"""
 scalar DateTime
 
 input DeletePropertyInput {
@@ -14,35 +16,36 @@ type DeletePropertyPayload {
 }
 
 type Mutation {
-  # Upsert a property
+  """Upsert a property"""
   upsertProperty(input: UpsertPropertyInput!): UpsertPropertyPayload
   deleteProperty(input: DeletePropertyInput!): DeletePropertyPayload
 }
 
-# An object with an ID
+"""An object with an ID"""
 interface Node {
-  # The id of the object.
+  """The id of the object."""
   id: ID!
 }
 
-# Information about pagination in a connection.
+"""Information about pagination in a connection."""
 type PageInfo {
-  # When paginating forwards, are there more items?
+  """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
 
-  # When paginating backwards, are there more items?
+  """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
-  # When paginating backwards, the cursor to continue.
+  """When paginating backwards, the cursor to continue."""
   startCursor: String
 
-  # When paginating forwards, the cursor to continue.
+  """When paginating forwards, the cursor to continue."""
   endCursor: String
 }
 
 type Property implements Node {
-  # The ID of an object
+  """The ID of an object"""
   id: ID!
+  name: String
   numberOfRooms: Float
   livingSurface: Float
   landSurface: Float
@@ -51,22 +54,22 @@ type Property implements Node {
   updatedAt: DateTime
 }
 
-# A connection to a list of items.
+"""A connection to a list of items."""
 type PropertyConnectionConnection {
-  # Information to aid in pagination.
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  # A list of edges.
+  """A list of edges."""
   edges: [PropertyConnectionEdge]
   totalCount: Int!
 }
 
-# An edge in a connection.
+"""An edge in a connection."""
 type PropertyConnectionEdge {
-  # The item at the end of the edge
+  """The item at the end of the edge"""
   node: Property!
 
-  # A cursor for use in pagination
+  """A cursor for use in pagination"""
   cursor: String!
 }
 
@@ -77,6 +80,7 @@ input PropertyFilters {
 
 input PropertyInput {
   id: ID
+  name: String
   numberOfRooms: Float
   livingSurface: Float
   landSurface: Float
@@ -84,15 +88,15 @@ input PropertyInput {
 }
 
 type Query {
-  # Fetches an object given its ID
+  """Fetches an object given its ID"""
   node(
-    # The ID of an object
+    """The ID of an object"""
     id: ID!
   ): Node
 
-  # Fetches objects given their IDs
+  """Fetches objects given their IDs"""
   nodes(
-    # The IDs of objects
+    """The IDs of objects"""
     ids: [ID!]!
   ): [Node]!
   properties(after: String, first: Int, sortBy: String, sortDirection: String, filters: PropertyFilters): PropertyConnectionConnection
@@ -107,3 +111,4 @@ type UpsertPropertyPayload {
   property: Property
   clientMutationId: String
 }
+
