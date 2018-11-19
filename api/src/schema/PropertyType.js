@@ -1,6 +1,11 @@
 /* @flow */
 
-import { GraphQLObjectType, GraphQLFloat, GraphQLInt } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLFloat,
+  GraphQLInt,
+  GraphQLString,
+} from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
 
 import { globalIdField } from 'graphql-relay';
@@ -11,6 +16,10 @@ export const PropertyType = new GraphQLObjectType({
   interfaces: () => [nodeInterface],
   fields: () => ({
     id: globalIdField(),
+
+    name: {
+      type: GraphQLString,
+    },
 
     numberOfRooms: {
       type: GraphQLFloat,

@@ -3,10 +3,12 @@ import {
   GraphQLInputObjectType,
   GraphQLFloat,
   GraphQLInt,
+  GraphQLString,
 } from 'graphql';
 
 export const fields = {
   id: { type: GraphQLID },
+  name: { type: GraphQLString },
   numberOfRooms: { type: GraphQLFloat },
   livingSurface: { type: GraphQLFloat },
   landSurface: { type: GraphQLFloat },

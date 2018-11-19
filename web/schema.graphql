@@ -45,7 +45,10 @@ type PageInfo {
 type Property implements Node {
   """The ID of an object"""
   id: ID!
+  numberOfRooms: Float
   livingSurface: Float
+  landSurface: Float
+  numberOfParkings: Int
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -76,7 +79,10 @@ input PropertyFilters {
 
 input PropertyInput {
   id: ID
+  numberOfRooms: Float
   livingSurface: Float
+  landSurface: Float
+  numberOfParkings: Int
 }
 
 type Query {

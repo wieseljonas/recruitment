@@ -74,13 +74,18 @@ export const Properties = (props: Props) => {
                 <TableBody>
                   {(root.properties.edges || []).map(({ node }) => {
                     return (
-                      <TableRow key={node.id}>
-                        <TableCell scope="row">{node.name}</TableCell>
-                        <TableCell numeric>{node.numberOfRooms}</TableCell>
-                        <TableCell numeric>{node.livingSurface}</TableCell>
-                        <TableCell numeric>{node.landSurface}</TableCell>
-                        <TableCell numeric>{node.numberOfParkings}</TableCell>
-                      </TableRow>
+                      <Link
+                        key={node.id}
+                        href={{ pathname: `/property?propertyId=${node.id}` }}
+                      >
+                        <TableRow hover component={Button}>
+                          <TableCell scope="row">{node.name}</TableCell>
+                          <TableCell numeric>{node.numberOfRooms}</TableCell>
+                          <TableCell numeric>{node.livingSurface}</TableCell>
+                          <TableCell numeric>{node.landSurface}</TableCell>
+                          <TableCell numeric>{node.numberOfParkings}</TableCell>
+                        </TableRow>
+                      </Link>
                     );
                   })}
                 </TableBody>
