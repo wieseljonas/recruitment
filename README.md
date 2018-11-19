@@ -95,6 +95,35 @@ $ yarn db-migrate
 - Send us a link of your repo
 - Bonus: Send us a link to your deployed application
 
+# Deployment
+
+## API
+
+After the first deployment need to provision your heroku app with a postgress database and update the credentials in `.env.production`
+
+
+```
+$ heroku apps:create [CHOOSE API NAME] --remote heroku-api
+$ git subtree push --prefix api heroku-api master
+
+to migrate database:
+
+$ heroku run yarn heroku-db-migrate --remote heroku-api
+```
+
+## WEB
+
+After deployment of api you need to update API_PROD variable in `web/package.json`
+
+```
+$ heroku apps:create [CHOOSE API NAME] --remote heroku-web
+$ git subtree push --prefix web heroku-web master
+
+to migrate database:
+
+$ heroku run yarn heroku-db-migrate --remote heroku-api
+```
+
 # Mockups
 
 ![](https://res.realadvisor.ch/fetch//https://storage.googleapis.com/img-dev.realadvisor.ch/imjvhaxukv__property.png)
